@@ -4,7 +4,7 @@ Group name: RUNTIME TERRORS
 
 Group members: Rebecca Hufkie, Caitlin Ingram, Denise Kondic , Kemoneilwe Matsane , Reitumetse Malope
 
-Group mentor: [Insert your group mentor, if you have one (not mandatory)]
+Group mentor: Lunga Phakathi
 
 Project title: Sudoko-Terror
 
