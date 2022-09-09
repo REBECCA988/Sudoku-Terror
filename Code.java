@@ -4,7 +4,7 @@ import java.util.Arrays;
 public class Code{
 
   public static void Board(int [][] grid){
-
+    //creates the skeleton of our board
     int index = 0;
     int col  = -1;
 
@@ -70,11 +70,12 @@ public class Code{
     return grid;
   }
   public static int [][] swapCol(int [][] board){
+    //Code James did in class
     Random num = new Random();
     int [][] grid = new int [9][9];
     for (int i = 0; i < 9; i++){
       for( int j = 0; j < 9; j++){
-        grid[i][j] = board[i][j];   // copies board that we created in createBoard
+        grid[i][j] = board[i][j];   // copies board that we made in createBoard
       }
     }
     int col_0 = num.nextInt(3);
@@ -91,6 +92,32 @@ public class Code{
     }
     return grid;
   }
+
+  public static int [][] swapRow(int[][] board){
+    //code James did in class
+    Random num = new Random();
+    int [][] grid = new int [9][9];
+    for (int i = 0; i < 9; i++){
+      for( int j = 0; j < 9; j++){
+        grid[i][j] = board[i][j];   // copies board that we made in createBoard
+      }
+    }
+      int row_0 = num.nextInt(3);
+      int row_1 = num.nextInt(3);
+      int row_2 = (row_1 + num.nextInt(2) + 1) % 3;
+      row_1 = 3* row_0 + row_1;
+      row_2 = 3* row_0 + row_2;
+
+      int temp = -1;
+      for (int i = 0; i < 9; i++){
+        temp = grid[i][row_1];
+        grid[i][row_1] = grid[i][row_2];
+        grid[i][row_2] = temp;
+      }
+
+      return grid;
+  }
+
   public static void main(String[] args){
     //code james wrote in class
     Random num = new Random();
@@ -101,9 +128,11 @@ public class Code{
     g = createBoard(seed);
     Board(g);
     x = g;
+    System.out.print("\n");
+
     for (int i = 0; i < 1000; i++){
       x = swapCol(x);
-      //x = swapRow(x);
+      x = swapRow(x);
     }
     Board(x);
   }
