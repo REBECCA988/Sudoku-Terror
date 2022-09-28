@@ -1,41 +1,187 @@
 import java.util.Random;
-import java.util.Arrays;
-
+import java.util.Scanner;
 public class Board{
-  public static void main(String[] args){
-    int index = 0;
-    int t = 0;
-  while (index < 3){
-    for (int w = 0; w < 3; w++){
-      System.out.print(" -------------");
-      System.out.print(" ");
-    }
-    System.out.print("\n");
+  //variable declaration
+  private Integer [][] grid;
+  private int level;
+  private Scanner in;
 
-    for (int i = 0; i < 3; i++){
-      System.out.print("| ");
-      t += 1;
-      for (int j = 0; j < 9; j++){
-        if (j==3){
-          System.out.print("|  ");
-        }
-        else if (j==6){
-          System.out.print("|  ");
-        }
-        System.out.print(t);
-        System.out.print("   ");
-      }
-      System.out.print("|");
-      System.out.print("\n");
-    }
-    index +=1;
+  public Board(){
+    this.grid = new Integer[9][9];
+    this.in = new Scanner(System.in);
+    }//constructor
 
-}
-    for (int w = 0; w < 3; w++){
-      System.out.print(" -------------");
-      System.out.print(" ");
-    }
+public int Level(){
+  //Scanner in = new Scanner(System.in);
+  System.out.println("Which level would you like to play? \n Easy[E] \n Medium[M] \n Hard[H]");
+  String lev = in.nextLine();
+  //this.level = 0;
+  switch (lev){
+    case "E": case "e":
+      this.level = 1*27;
+      //System.out.print("Hello");
+      break;
 
+    case "M": case "m":
+      this.level = 27 + 9;
+      //System.out.println("Huh");
+      break;
 
+    case "H": case "h":
+      this.level = 27 + 18;
+      break;
   }
+
+  return this.level;
 }
+
+  public void DisplayBoard(){
+    //creates the skeleton of our board
+    int index = 0;
+    int col  = -1;
+    //int row = 0;
+    while (index != 3 ){
+      for (int w = 0; w < 3; w++){
+        System.out.print(" -------------");
+        System.out.print(" ");
+      }
+      System.out.print("\n");
+
+      for (int i = 0; i < 3; i++){
+        System.out.print("| ");
+        col += 1;
+        for (int j = 0; j < 9; j++){
+          if (j==3){
+            System.out.print("|  ");
+          }
+          else if (j==6){
+            System.out.print("|  ");
+          }
+          if(this.grid[col][j] == null){
+            System.out.print(" ");
+          }
+          else{
+            System.out.print(this.grid[col][j]);
+          }
+
+          System.out.print("   ");
+        }
+
+        System.out.print("|");
+        System.out.print("\n");
+      }
+      index += 1;
+
+    }
+      for (int w = 0; w < 3; w++){
+        System.out.print(" -------------");
+        System.out.print(" ");
+      }
+  } //Creates board
+
+  public void addNumbers(int seed){
+    //method to add numbers to grid, making it unshuffled
+    int cnt = -1;
+    for (int i = 0; i < 9; i++){
+      if (i == 0){
+        cnt = seed;
+      }
+      else if (i == 3){
+        cnt = (seed + 1) % 9;
+      }
+      else  if (i == 6){
+        cnt = (seed + 2) % 9;
+      }
+      else{
+        cnt = (this.grid[i-1][0] + 3) % 9;
+      }
+
+      for (int j = 0; j < 9; j++){
+        if (cnt == 0){
+          cnt = 9;
+        }
+        this.grid[i][j] = cnt;
+        cnt = (cnt + 1) % 9;
+      }
+    }
+  }//adds numbers to board
+
+  public void SwopRow(){
+    int index = 0;
+
+    //while (index < 9){
+      Random num = new Random();
+      for (int i = 0; i < 9; i++){
+        int row_0 = num.nextInt(3);
+        int row_1 = num.nextInt(3);
+        int row_2 = (row_1 + num.nextInt(2) + 1) % 3;
+        while (row_1 == row_0 || row_1 == row_2 || row_2 == row_0){
+          row_1 = num.nextInt(3);
+          row_2 = (row_1 + num.nextInt(2) + 1) % 3;
+        }
+      row_1 = 3*row_0 + row_1;
+      row_2 = 3*row_0 + row_2;
+      int temp = -1;
+      for (int j = 0; j < 9; j++){
+        temp = this.grid[row_1][j];
+        this.grid[row_1][j] = this.grid[row_2][j];
+        this.grid[row_2][j] = temp;
+      }
+      }
+    index += 1;
+    //}
+  }
+
+    public void SwopCol(){
+      int index = 0;
+
+      //while (index < 9){
+        Random num_1 = new Random();
+        for (int i = 0; i < 9; i++){
+          int col_0 = num_1.nextInt(3);
+          int col_1 = num_1.nextInt(3);
+          int col_2 = (col_1 + num_1.nextInt(2) + 1) % 3;
+          while (col_1 == col_0 || col_1 == col_2 || col_2 == col_1){
+            col_1 = num_1.nextInt(3);
+            col_2 = (col_1 + num_1.nextInt(2) + 1) % 3;
+          }
+
+          col_1 =  3*col_0 + col_1;
+          col_2 = 3*col_0 + col_2;
+
+          int temp_1 = -1;
+          for (int r = 0; r < 9; r++){
+          temp_1 = this.grid[r][col_1];
+          this.grid[r][col_1] = this.grid[r][col_2];
+          this.grid[r][col_2] = temp_1;
+      }
+      index += 1;
+
+    }
+    }
+
+ //randomizes the numbers added to board
+
+  public void empty(){
+    //System.out.println(this.level);
+    for (int i = 0; i < this.level; i++){
+      Random num = new Random();
+      int row_0 = num.nextInt(3);
+      int row_1 = num.nextInt(3);
+      int row_2 = (row_1 + num.nextInt(2) + 1) % 3;
+      row_1 = 3*row_0 + row_1;
+      row_2 = 3*row_0 + row_2;
+
+      Random num_1 = new Random();
+      int col_0 = num_1.nextInt(3);
+      int col_1 = num_1.nextInt(3);
+      int col_2 = (col_1 + num_1.nextInt(2) + 1) % 3;
+      col_1 = 3*col_0 + col_1;
+      col_2 = 3*col_0 + col_2;
+
+      this.grid[row_1][col_1] = null;
+      this.grid[row_2][col_2] = null;
+    }
+  }//randomly takes out numbers and replaces them with spaces
+
+} //Grid class
