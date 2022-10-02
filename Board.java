@@ -7,9 +7,13 @@ public class Board{
   private Scanner in;
 
   public Board(){
-    this.grid = new Integer[9][9];
+    this.grid = new Integer [9][9];
     this.in = new Scanner(System.in);
     }//constructor
+	
+	public Integer[][] getBoard(){
+		return this.grid ;
+	} //getBoard	
 
 public int Level(){
   //Scanner in = new Scanner(System.in);
@@ -37,6 +41,7 @@ public int Level(){
 
   public void DisplayBoard(){
     //creates the skeleton of our board
+	System.out.print("A " + "B ") ;
     int index = 0;
     int col  = -1;
     //int row = 0;
@@ -129,7 +134,7 @@ public int Level(){
       }
       }
     index += 1;
-    //}
+    
   }
 
     public void SwopCol(){
@@ -144,21 +149,21 @@ public int Level(){
           while (col_1 == col_0 || col_1 == col_2 || col_2 == col_1){
             col_1 = num_1.nextInt(3);
             col_2 = (col_1 + num_1.nextInt(2) + 1) % 3;
-          }
+          } //while 
 
           col_1 =  3*col_0 + col_1;
           col_2 = 3*col_0 + col_2;
 
           int temp_1 = -1;
           for (int r = 0; r < 9; r++){
-          temp_1 = this.grid[r][col_1];
-          this.grid[r][col_1] = this.grid[r][col_2];
-          this.grid[r][col_2] = temp_1;
-      }
+			 temp_1 = this.grid[r][col_1];
+			this.grid[r][col_1] = this.grid[r][col_2];
+			this.grid[r][col_2] = temp_1;
+			} //for
       index += 1;
 
-    }
-    }
+		} //for
+    } //Swop Columns
 
  //randomizes the numbers added to board
 
@@ -183,5 +188,25 @@ public int Level(){
       this.grid[row_2][col_2] = null;
     }
   }//randomly takes out numbers and replaces them with spaces
+  
+	
+	
+	public void MakeGameBoard() {
+		Random num = new Random();
+		int seed = num.nextInt(9);
+		
+		addNumbers(seed);
+		DisplayBoard();
+		SwopCol() ;
+		SwopRow() ;
+		System.out.print("\n");
+		DisplayBoard() ;
+		empty() ;
+		System.out.print("\n");
+		DisplayBoard() ;
+	} //MakeGameBoard	
+		
+	  
+	  
 
 } //Grid class
