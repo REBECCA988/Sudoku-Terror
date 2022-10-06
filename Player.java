@@ -10,16 +10,16 @@ public class Player {
 	private int [] scores ;
 	//private List<String> inventory; 
 	
-	public Player(String name) {
+	public Player(String name) { //takes in the players username
 		//add checkname method here and try/catch exception
 		this.username = name ;
     } // constructor
 	
-	public String toString() {
+	public String toString() { //displays player username
 		return this.username ; 
 	} //toString	
 	
-	public String AddTime(double time, //level) {
+	public String AddTime(double time, //level) { //adds time to csv excel file
     	try {
 				String newtime = normalise(time) ;
 				FileWriter myWriter = new FileWriter("Times.csv", true);
@@ -37,12 +37,12 @@ public class Player {
 	public String [] TopThreeTime() { //will return list or array , still in progress
 	} //topthreetimes for this.username
 	
-	public String [] ScoreBoard() {
+	public String [] ScoreBoard() { //displays scoreboard of all times
 		//best to worst times 
 		//10 at a time
 	} //scoreboard
 	
-	/*public String getTimes() {
+	/*public String getTimes() { //get players times
 		try {
 				File myObj = new File("times.txt");
 				Scanner in = new Scanner(myObj);
@@ -65,7 +65,7 @@ public class Player {
 		return "oh no" ;				
 	} //getTimes	*/
 
-	private boolean CheckName(String name){
+	private boolean CheckName(String name){ //checks if username meets requirements and is in database
 		if (name.length() > 10) {
 			return false ;
 		} //if
@@ -77,7 +77,7 @@ public class Player {
 			//check if username already in database
 	} //CheckName
 
-	public String normalise(double seconds) {
+	public String normalise(double seconds) { //converts time from seconds to hours, minutes and remaning seconds
 		int minute = 0 ;
 		int hour = 0 ;
 		
