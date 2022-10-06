@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+
 public class Board{
   //variable declaration
   private Integer [][] answers ;
@@ -8,33 +9,31 @@ public class Board{
   private Scanner in;
 
 	public Board(){
-		this.answers = new Integer[9][9] ;
-		this.grid = new Integer [9][9];
+		this.answers = new Integer[9][9] ; //grid that isnt emptied and used to check user input
+		this.grid = new Integer [9][9]; //grid that is emptied , this grid is shown to player
 		this.in = new Scanner(System.in);
     }//constructor
 	
 	public Integer[][] getBoard(){
-		return this.grid ;
+		return this.grid ; //returns player board
 	} //getBoard	
 	
 	public Integer [][] getAnswers() {
-		return this.answers ;
+		return this.answers ; //returns answer board
 	} //getAnswers	
 
 	public int Level(){
 	  //Scanner in = new Scanner(System.in);
-	  System.out.println("Which level would you like to play? \n Easy[E] \n Medium[M] \n Hard[H]");
+	  System.out.println("Which level would you like to play? \n Easy[E] \n Medium[M] \n Hard[H]");  
 	  String lev = in.nextLine();
 	  //this.level = 0;
 	  switch (lev){
 		case "E": case "e":
 		  this.level = 1*27;
-		  //System.out.print("Hello");
 		  break;
 
 		case "M": case "m":
 		  this.level = 27 + 9;
-		  //System.out.println("Huh");
 		  break;
 
 		case "H": case "h":
@@ -47,15 +46,6 @@ public class Board{
 
 	  public void DisplayBoard(Integer [][] g){
 		//creates the skeleton of our board
-		String [] alpha = new String [9] ;
-		String alphabet = "ABCDEFGHIJ" ;
-		
-		for (int r = 0 ; r < 9 ; r ++) {
-			System.out.print(alpha[r] = alphabet.substring(r, r +1) + " ") ;
-		}	
-		
-		System.out.print("\n") ;
-			
 		
 		int index = 0;
 		int col  = -1;
@@ -207,7 +197,7 @@ public class Board{
 	
 	
 	public void MakeGameBoard() {
-		
+		//creates baord, addsnumbers, removes numbers and displays board
 		Random num = new Random();
 		int seed = num.nextInt(9);
 		
@@ -227,15 +217,15 @@ public class Board{
 		//System.out.println("Empty grid") ;
 		empty() ;
 		//System.out.print("\n");
-		//DisplayBoard(this.grid) ;
+		DisplayBoard(this.grid) ;
 	} //MakeGameBoard	
 		
-	public void Input(int r,int  c,int input) {
+	private void Input(int r,int  c,int input) { //adds the number to the grid if correct
 		//Integer [][] grid = this.b.getBoard() ; //gets grid from board class
 		this.grid[r][c] = input ; //inputs values into grid
 	}  //add input
 	
-	public boolean ValidInput(int r , int c , int input) { 
+	public boolean ValidInput(int r , int c , int input) {  //checks if user input is valid before adding
 		boolean br = true ;
 		boolean bc = true ;
 		boolean bi = true ;
@@ -279,7 +269,7 @@ public class Board{
 		
 	} //validInput	
 	
-	public boolean checkIfEmpty() {
+	public boolean checkIfEmpty() { //checks if there are any empty spaces left in the grid
 		for (int i = 0 ; i < 9 ; i ++) {
 			for (int j = 0 ; j < 9 ; j++) {
 				if (this.grid[i][j] == null) {
