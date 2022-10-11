@@ -15,8 +15,12 @@ public class SudokuS{
 	Player p = new Player(name) ;
 	
 	if ((s.toLowerCase()).equals("y")) {
-		p.CheckName(name) ; 
-	} 
+		while (p.CheckName(name) == false ) {
+			System.out.println("Username already exists");
+			System.out.println("Please provide a different username:") ;
+			name = in.nextLine() ;
+		} //if	
+	} //if
 	
 	//OPTIONS
 	System.out.println("What do you wish to do:") ; 
@@ -32,19 +36,15 @@ public class SudokuS{
 		case "1" : //PLAYER DETAILS
 			System.out.println("What do you wish to do:") ; 
 			System.out.println("[1] View Times") ;
-			System.out.println("[2] Top Three Times") ;
-			System.out.println("[3] Scoreboard") ;
+			System.out.println("[2] Scoreboard") ;
 			System.out.println("[q] Quit") ;
 			String opt1 = in.nextLine() ;
 			//Player p = new Player(name) ;
 			switch (opt1) {	
 				case "1" :
-					//p.getTimes() ;
+					p.getTimes() ;
 					break ;
 				case "2" :
-					p.TopThreeTimes() ;
-					break ;
-				case "3" :
 					//p.Scoreboard() ;
 					break ;
 				default:
