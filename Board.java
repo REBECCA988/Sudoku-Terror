@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+
 public class Board{
   //variable declaration
   private Integer [][] answers ;
@@ -43,9 +44,12 @@ public class Board{
 	  }
 
 	  return this.level;
-	}
+	  
+	} //level
+	
 
-	  public void DisplayBoard(Integer [][] g){
+	  
+	public void DisplayBoard(Integer [][] g){
 		//creates the skeleton of our board
     int r = 0;
     int index = 0;
@@ -102,6 +106,7 @@ public class Board{
       System.out.print("\n");
     } //Creates board
 
+
 	  public void addNumbers(int seed){
 		//method to add numbers to grid, making it unshuffled
 		int cnt = -1;
@@ -128,6 +133,7 @@ public class Board{
 		  }
 		}
 	  }//adds numbers to board
+
 
 	  public void SwopRow(){
 		int index = 0;
@@ -156,6 +162,7 @@ public class Board{
 
 	  } //swopRow
 
+
 		public void SwopCol(){
 		  int index = 0;
 
@@ -183,8 +190,7 @@ public class Board{
 
 			} //for
 		} //Swop Columns
-
-	 //randomizes the numbers added to board
+	//randomizes the numbers added to board
 
 	public void empty(){
 		//System.out.println(this.level);
@@ -234,28 +240,37 @@ public class Board{
 		DisplayBoard(this.grid) ;
 	} //MakeGameBoard
 
+
 	public void Input(int r,int  c,int input) {
 		//Integer [][] grid = this.b.getBoard() ; //gets grid from board class
 		this.grid[r][c] = input ; //inputs values into grid
 	}  //add input
+
 
 	public boolean ValidInput(int r , int c , int input) {
 		boolean br = true ;
 		boolean bc = true ;
 		boolean bi = true ;
 		boolean b = true ;
+    int trys = 0;
+
 		if ( ( r >= 0 ) && (r <= 8)  ){ //check that row is valid
 			br = true ;
-		} else {
+		}
+    else {
 			br = false ;
 			System.out.println("Invalid Row") ;
+
 		}
 
 		if ( c >= 0 && c <= 8) { //check that column is valid
 			bc = true ;
-		} else {
+		}
+    else {
 			bc = false ;
 			System.out.println("Invalid Column") ;
+
+
 		}
 
 		if (input >= 1 && input <= 9) { //check if input is valid
@@ -264,21 +279,24 @@ public class Board{
 		else {
 			bi = false ;
 			System.out.println("Invalid Input") ;
+
 		}
 
 		if (this.answers[r][c] == input) { //check if input is in correct place
 			b = true ;
-		} else {
+		}
+    else {
 			b = false ;
 			System.out.println("Input in wrong place") ;
+
 		}
 
 		if ( br && bc && bi && b ) {
-			Input(r,c,input) ;
+			Input(r,c,input);
 			return true;
 		}
 		else {
-			return false ;
+			return false;
 		}
 
 	} //validInput
