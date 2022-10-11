@@ -12,29 +12,29 @@ public class Board{
 		this.grid = new Integer [9][9];
 		this.in = new Scanner(System.in);
     }//constructor
-	
+
 	public Integer[][] getBoard(){
 		return this.grid ;
-	} //getBoard	
-	
+	} //getBoard
+
 	public Integer [][] getAnswers() {
 		return this.answers ;
-	} //getAnswers	
+	} //getAnswers
 
 	public int Level(){
-	  //Scanner in = new Scanner(System.in);
+	  Scanner in = new Scanner(System.in);
 	  System.out.println("Which level would you like to play? \n Easy[E] \n Medium[M] \n Hard[H]");
 	  String lev = in.nextLine();
-	  //this.level = 0;
+
 	  switch (lev){
 		case "E": case "e":
 		  this.level = 1*27;
-		  //System.out.print("Hello");
+
 		  break;
 
 		case "M": case "m":
 		  this.level = 27 + 9;
-		  //System.out.println("Huh");
+
 		  break;
 
 		case "H": case "h":
@@ -47,48 +47,60 @@ public class Board{
 
 	  public void DisplayBoard(Integer [][] g){
 		//creates the skeleton of our board
-		
-		int index = 0;
-		int col  = -1;
-		//int row = 0;
-		while (index != 3 ){
-		  for (int w = 0; w < 3; w++){
-			System.out.print(" -------------");
-			System.out.print(" ");
-		  }
-		  System.out.print("\n");
+    int r = 0;
+    int index = 0;
+    int col  = -1;
+    //int row = 0;
+    System.out.print(" R  C\t");
 
-		  for (int i = 0; i < 3; i++){
-			System.out.print("| ");
-			col += 1;
-			for (int j = 0; j < 9; j++){
-			  if (j==3){
-				System.out.print("|  ");
-			  }
-			  else if (j==6){
-				System.out.print("|  ");
-			  }
-			  if(g[col][j] == null){
-				System.out.print(" ");
-			  }
-			  else{
-				System.out.print(g[col][j]);
-			  }
+    System.out.print("   0   1   2      3   4   5      6   7   8\n");
 
-			  System.out.print("   ");
-			}
 
-			System.out.print("|");
-			System.out.print("\n");
-		  }
-		  index += 1;
+    while (index != 3 ){
+      for (int w = 0; w < 3; w++){
+      System.out.print("\t");
+      System.out.print(" -------------");
+      }
+      System.out.print("\n");
 
-		}
-		  for (int w = 0; w < 3; w++){
-			System.out.print(" -------------");
-			System.out.print(" ");
-		  }
-	  } //Creates board
+
+      for (int i = 0; i < 3; i++){
+      System.out.print(" " + r + "\t");
+      System.out.print("|  ");
+      r++;
+      col += 1;
+      for (int j = 0; j < 9; j++){
+
+        if (j==3){
+          //System.out.print("\t");
+        System.out.print("|  ");
+        }
+        else if (j==6){
+          //System.out.print("\t");
+        System.out.print("|  ");
+        }
+        if(g[col][j] == null){
+          System.out.print(" ");
+        }
+        else{
+          System.out.print(g[col][j]);
+        }
+        System.out.print("   ");
+      }
+
+      System.out.print("|");
+      System.out.print("\n");
+      }
+      index += 1;
+
+    }
+      for (int w = 0; w < 3; w++){
+        System.out.print("\t");
+        System.out.print(" -------------");
+        System.out.print(" ");
+      }
+      System.out.print("\n");
+    } //Creates board
 
 	  public void addNumbers(int seed){
 		//method to add numbers to grid, making it unshuffled
@@ -138,10 +150,10 @@ public class Board{
 			this.grid[row_1][j] = this.grid[row_2][j];
 			this.grid[row_2][j] = temp;
 		  } //for
-		  
+
 		index += 1;
 		  } //for
-		
+
 	  } //swopRow
 
 		public void SwopCol(){
@@ -156,7 +168,7 @@ public class Board{
 			 while (col_1 == col_0 || col_1 == col_2 || col_2 == col_1){
 				col_1 = num_1.nextInt(3);
 				col_2 = (col_1 + num_1.nextInt(2) + 1) % 3;
-			 } //while 
+			 } //while
 
 			  col_1 =  3*col_0 + col_1;
 			  col_2 = 3*col_0 + col_2;
@@ -195,14 +207,14 @@ public class Board{
 		  this.grid[row_2][col_2] = null;
 		}
 	  }//randomly takes out numbers and replaces them with spaces
-	  
-	
-	
+
+
+
 	public void MakeGameBoard() {
-		
+
 		Random num = new Random();
 		int seed = num.nextInt(9);
-		
+
 		addNumbers(seed);
 		//DisplayBoard(grid);
 		SwopRow() ;
@@ -220,14 +232,14 @@ public class Board{
 		empty() ;
 		//System.out.print("\n");
 		DisplayBoard(this.grid) ;
-	} //MakeGameBoard	
-		
+	} //MakeGameBoard
+
 	public void Input(int r,int  c,int input) {
 		//Integer [][] grid = this.b.getBoard() ; //gets grid from board class
 		this.grid[r][c] = input ; //inputs values into grid
 	}  //add input
-	
-	public boolean ValidInput(int r , int c , int input) { 
+
+	public boolean ValidInput(int r , int c , int input) {
 		boolean br = true ;
 		boolean bc = true ;
 		boolean bi = true ;
@@ -238,28 +250,28 @@ public class Board{
 			br = false ;
 			System.out.println("Invalid Row") ;
 		}
-		
+
 		if ( c >= 0 && c <= 8) { //check that column is valid
 			bc = true ;
 		} else {
 			bc = false ;
 			System.out.println("Invalid Column") ;
 		}
-		
-		if (input >= 1 && input <= 9) { //check if input is valid 
+
+		if (input >= 1 && input <= 9) { //check if input is valid
 			bi = true ;
-		}	
-		else { 
+		}
+		else {
 			bi = false ;
 			System.out.println("Invalid Input") ;
-		}	
-		
+		}
+
 		if (this.answers[r][c] == input) { //check if input is in correct place
 			b = true ;
 		} else {
 			b = false ;
 			System.out.println("Input in wrong place") ;
-		} 	
+		}
 
 		if ( br && bc && bi && b ) {
 			Input(r,c,input) ;
@@ -267,10 +279,10 @@ public class Board{
 		}
 		else {
 			return false ;
-		}	
-		
-	} //validInput	
-	
+		}
+
+	} //validInput
+
 	public boolean checkIfEmpty() {
 		for (int i = 0 ; i < 9 ; i ++) {
 			for (int j = 0 ; j < 9 ; j++) {
@@ -279,8 +291,8 @@ public class Board{
 				} //if
 			} //j for
 		} //i for
-		
+
 		return true ;
-		
-	}//checkIfEmpty	
+
+	}//checkIfEmpty
 } //Grid class
